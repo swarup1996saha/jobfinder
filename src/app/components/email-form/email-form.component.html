@@ -1,0 +1,67 @@
+<div class="email-form-container">
+  <form [formGroup]="emailForm">
+    <div class="form-group">
+      <label for="pastedText">Paste Text Content:</label>
+      <textarea id="pastedText" 
+                formControlName="pastedText" 
+                class="form-control" 
+                rows="6"
+                (input)="onTextPasted()"
+                placeholder="Paste your text content here..."></textarea>
+    </div>
+
+    <div *ngIf="extractedContacts.length > 0" class="extracted-contacts">
+      <h4>Found {{ extractedContacts.length }} contact(s):</h4>
+      
+      <div class="row">
+        <div class="col-md-4" *ngFor="let type of ['automation', 'performance', 'manual']">
+          <div class="card">
+            <div class="card-header">
+              <h5>{{ type | titlecase }} Testing</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <li *ngFor="let contact of extractedContacts | filterByTestingType:type" class="mb-3">
+                  <div class="contact-card">
+                    <div class="email-info d-flex align-items-center">
+                      <strong>{{ contact.email }}</strong>
+                      <button class="btn btn-sm btn-outline-secondary ms-2" 
+                              (click)="copyEmail(contact.email)"
+                              title="Copy email address">
+                        <i class="bi bi-clipboard"></i> Copy
+                      </button>
+                    </div>
+                    <div *ngIf="contact.role" class="role-info">
+                      Role: {{ contact.role }}
+                    </div>
+                    <div *ngIf="contact.experience" class="exp-info">
+                      Experience: {{ contact.experience }} years
+                    </div>
+                    <div *ngIf="contact.noticePeriod" class="notice-info">
+                      Notice Period: {{ contact.noticePeriod }}
+                    </div>
+                    <div *ngIf="contact.skills?.length" class="skills-info">
+                      <small class="text-muted">Skills:</small>
+                      <div class="skill-tags">
+                        <span *ngFor="let skill of contact.skills" 
+                              class="badge badge-info me-1">
+                          {{ skill }}
+                        </span>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary mt-2" 
+                            (click)="copyEmailTemplate(contact)">
+                      Copy Email Template
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    <button type="button"             (click)="clearForm()"             class="btn btn-secondary mt-3">
+      Clear
+    </button>
+  </form>
+</div>
