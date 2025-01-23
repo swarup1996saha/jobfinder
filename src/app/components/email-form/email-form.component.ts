@@ -369,7 +369,7 @@ export class EmailFormComponent implements OnInit {
       `${contact.testingType.charAt(0).toUpperCase() + contact.testingType.slice(1)} Testing` : 
       'Software Testing';
 
-    const template = `Subject: Application for ${testingType} Position
+    const template = `Application for ${testingType} Position
 
 Dear Hiring Manager,
 
@@ -385,7 +385,7 @@ Please find my details below:
 6. Current Location: Kolkata
 7. Preferred Interview Location: Kolkata
 8. Current/Last Employer: Ancile Technologies
-9. Date of Birth: 22/02/1992
+9. Date of Birth: 02/02/1992
 10. Key Skills: ${contact.skills?.join(', ') || testingType}
 
 Please find my resume attached for your consideration.
